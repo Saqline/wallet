@@ -1,0 +1,738 @@
+
+securitySchemes:
+    bearerAuth:  # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+paths:
+  /marketplace:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - marketplace
+      summary: Add new Marketplace
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: displayName
+          description: Save new Marketplace
+          required: true
+          schema:
+            $ref: '#/definitions/marketplace'
+      responses:
+        '201':
+          description: An object with Marketplace details
+
+  /marketplace/upload/{colName}/{rowId}:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+      - marketplace
+      parameters:
+      - name: colName
+        in: path
+        description: Column/Field name in table/document
+        required: true
+        schema:
+          type: string
+      - name: rowId
+        in: path
+        description: primary id in table/document
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: file
+              properties:
+                filename:
+                  type: file
+                  format: binary
+  responses:
+    '200':
+      description: Successful upload
+        
+  /marketplace/:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - marketplace
+      summary: List Marketplace
+      description: Search Marketplace 
+      parameters:
+        - name: page
+          in: query
+          description: page No
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: limit data per page or Page Size
+          required: false
+          explode: true
+          schema:
+            type: integer
+        
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: businessname
+          in: query
+          description: businessname values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: businessname_mode
+          in: query
+          description: businessname mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: type
+          in: query
+          description: type values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: type_mode
+          in: query
+          description: type mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: address
+          in: query
+          description: address values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: address_mode
+          in: query
+          description: address mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: city
+          in: query
+          description: city values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: city_mode
+          in: query
+          description: city mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: postcode
+          in: query
+          description: postcode values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: postcode_mode
+          in: query
+          description: postcode mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: contactnumber
+          in: query
+          description: contactnumber values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: contactnumber_mode
+          in: query
+          description: contactnumber mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: website
+          in: query
+          description: website values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: website_mode
+          in: query
+          description: website mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: mapurl
+          in: query
+          description: mapurl values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: mapurl_mode
+          in: query
+          description: mapurl mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: active
+          in: query
+          description: active true or false
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: true
+            enum:
+              - true
+              - false
+        - name: accountid
+          in: query
+          description: accountid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: accountid_mode
+          in: query
+          description: accountid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  perpage:
+                    type: integer
+                  page:
+                    type: integer
+                  docs:
+                    type: array
+                    items:
+                      $ref: '#/definitions/marketplaceData'
+        '400':
+          description: Invalid status value
+/marketplace/all:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - marketplace
+      summary: List Marketplace
+      description: get all data without paging
+      parameters: 
+       
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: businessname
+          in: query
+          description: businessname values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: businessname_mode
+          in: query
+          description: businessname mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: type
+          in: query
+          description: type values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: type_mode
+          in: query
+          description: type mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: address
+          in: query
+          description: address values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: address_mode
+          in: query
+          description: address mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: city
+          in: query
+          description: city values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: city_mode
+          in: query
+          description: city mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: postcode
+          in: query
+          description: postcode values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: postcode_mode
+          in: query
+          description: postcode mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: contactnumber
+          in: query
+          description: contactnumber values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: contactnumber_mode
+          in: query
+          description: contactnumber mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: website
+          in: query
+          description: website values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: website_mode
+          in: query
+          description: website mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: mapurl
+          in: query
+          description: mapurl values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: mapurl_mode
+          in: query
+          description: mapurl mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: active
+          in: query
+          description: active true or false
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: true
+            enum:
+              - true
+              - false
+        - name: accountid
+          in: query
+          description: accountid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: accountid_mode
+          in: query
+          description: accountid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/marketplaceData'
+        '400':
+          description: Invalid status value
+/marketplace/suggestions:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - marketplace
+      summary: List marketplace
+      description: Keyward search data on businessname,address,city,postcode,contactnumber,website,mapurl
+      parameters:
+        - name: search  
+          in: query
+          description: keyword search on businessname,address,city,postcode,contactnumber,website,mapurl
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/marketplaceData'
+        '400':
+          description: Invalid status value
+/marketplace/{id}:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - marketplace
+      summary: List marketplace
+      description: get 
+      parameters:
+        - name: id
+          in: path
+          description: get Marketplace by id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/definitions/marketplaceData'
+        '400':
+          description: Invalid status value
+definitions:
+  marketplace:
+      type: object
+      properties:
+        
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        businessname:
+            type: string
+        type:
+            type: integer
+        address:
+            type: string
+        city:
+            type: string
+        postcode:
+            type: string
+        contactnumber:
+            type: string
+        website:
+            type: string
+        mapurl:
+            type: string
+        active:
+            type: boolean
+        accountid:
+            type: integer
+          
+
+  marketplaceData:
+      type: object
+      properties:
+      
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        businessname:
+            type: string
+        type:
+            type: integer
+        address:
+            type: string
+        city:
+            type: string
+        postcode:
+            type: string
+        contactnumber:
+            type: string
+        website:
+            type: string
+        mapurl:
+            type: string
+        active:
+            type: boolean
+        accountid:
+            type: integer
+          
+    

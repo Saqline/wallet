@@ -1,0 +1,70 @@
+@HOST = http://localhost:8080
+@AUTH = authtoken
+@TESTID = testID
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/auth HTTP/1.1
+content-type: application/json
+
+{
+"email":"test@ucode.ai",
+"password":"123456"
+}
+###
+POST {{HOST}}/accountdocuments HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"accountid":"1",
+"documenttype":"duis",
+"documentnumber":"pariatur",
+"photo1":"",
+"photo2":"",
+"verified":"false",
+"verfricationstatus":"1.35"
+}
+
+###
+
+GET {{HOST}}/accountdocuments? HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/accountdocuments?accountid=1&documenttype=duis&documentnumber=pariatur&photo1=&photo2=&verified=false&verfricationstatus=1.35 HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/accountdocuments/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+PUT {{HOST}}/accountdocuments/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"accountid":"1",
+"documenttype":"duis",
+"documentnumber":"pariatur",
+"photo1":"",
+"photo2":"",
+"verified":"false",
+"verfricationstatus":"1.35"
+}
+###
+PATCH {{HOST}}/accountdocuments/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"accountid":"1",
+"documenttype":"duis",
+"documentnumber":"pariatur",
+"photo1":"",
+"photo2":"",
+"verified":"false",
+"verfricationstatus":"1.35"
+}
+###
+DELETE {{HOST}}/accountdocuments/{{TESTID}} http/1.1
+Authorization: Bearer {{AUTH}} 

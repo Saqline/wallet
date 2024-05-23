@@ -1,0 +1,115 @@
+@HOST = http://localhost:8080
+@AUTH = authtoken
+@TESTID = testID
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/auth HTTP/1.1
+content-type: application/json
+
+{
+"email":"test@ucode.ai",
+"password":"123456"
+}
+###
+POST {{HOST}}/accounts HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"email":"consequat@ucode.ai",
+"name":"deserunt",
+"address":"Reprehenderit consectetur velit nisi.",
+"city":"sunt",
+"state":"reprehenderit",
+"postcode":"quis",
+"password":"ucode1234",
+"selfyphoto":"",
+"country":"tempor",
+"verfricationstatus":"1.35",
+"acctype":"exclf",
+"username":"consectetur4",
+"contactnumber":"601787513808"
+}
+
+###
+
+#MAIN REGISTRATION for NODEJS VERSION
+POST {{HOST}}/accounts/reg HTTP/1.1
+content-type: application/json
+    
+{
+"email":"test@ucode.ai",
+"password":"123456",
+"firstname":"uCode",
+"lastname":"Test",
+"usertype":"0",
+"mobile":"60176408250"
+}
+###
+#MAIN REGISTRATION for Java Spring boot
+POST {{HOST}}/reg HTTP/1.1
+content-type: application/json
+ 
+{
+"email":"test@ucode.ai",
+"password":"123456",
+"firstname":"uCode",
+"lastname":"Test",
+"usertype":"0",
+"mobile":"60176408250"
+}
+###
+
+GET {{HOST}}/accounts? HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/accounts?email=consequat@&name=deserunt&address=Reprehende&city=sunt&state=reprehende&postcode=quis&password=ucode1234&selfyphoto=&country=tempor&walletbalance=1.35&status=cupidatat&verfricationstatus=1.35&acctype=exclf&username=consectetu&contactnumber=6017875138 HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/accounts/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+PUT {{HOST}}/accounts/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"email":"consequat@ucode.ai",
+"name":"deserunt",
+"address":"Reprehenderit consectetur velit nisi.",
+"city":"sunt",
+"state":"reprehenderit",
+"postcode":"quis",
+"password":"ucode1234",
+"selfyphoto":"",
+"country":"tempor",
+"verfricationstatus":"1.35",
+"acctype":"exclf",
+"username":"consectetur4",
+"contactnumber":"601787513808"
+}
+###
+PATCH {{HOST}}/accounts/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"email":"consequat@ucode.ai",
+"name":"deserunt",
+"address":"Reprehenderit consectetur velit nisi.",
+"city":"sunt",
+"state":"reprehenderit",
+"postcode":"quis",
+"password":"ucode1234",
+"selfyphoto":"",
+"country":"tempor",
+"verfricationstatus":"1.35",
+"acctype":"exclf",
+"username":"consectetur4",
+"contactnumber":"601787513808"
+}
+###
+DELETE {{HOST}}/accounts/{{TESTID}} http/1.1
+Authorization: Bearer {{AUTH}} 

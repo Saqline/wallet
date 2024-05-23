@@ -1,0 +1,543 @@
+
+securitySchemes:
+    bearerAuth:  # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+paths:
+  /topup:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - topup
+      summary: Add new Topup
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: displayName
+          description: Save new Topup
+          required: true
+          schema:
+            $ref: '#/definitions/topup'
+      responses:
+        '201':
+          description: An object with Topup details
+
+  /topup/:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - topup
+      summary: List Topup
+      description: Search Topup 
+      parameters:
+        - name: page
+          in: query
+          description: page No
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: limit data per page or Page Size
+          required: false
+          explode: true
+          schema:
+            type: integer
+        
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: method
+          in: query
+          description: method values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: method_mode
+          in: query
+          description: method mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: amount
+          in: query
+          description: amount values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: amount_mode
+          in: query
+          description: amount mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: status
+          in: query
+          description: status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: status_mode
+          in: query
+          description: status mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: transactionid
+          in: query
+          description: transactionid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: transactionid_mode
+          in: query
+          description: transactionid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: marchanttransactionid
+          in: query
+          description: marchanttransactionid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: marchanttransactionid_mode
+          in: query
+          description: marchanttransactionid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountid
+          in: query
+          description: accountid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: accountid_mode
+          in: query
+          description: accountid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  perpage:
+                    type: integer
+                  page:
+                    type: integer
+                  docs:
+                    type: array
+                    items:
+                      $ref: '#/definitions/topupData'
+        '400':
+          description: Invalid status value
+/topup/all:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - topup
+      summary: List Topup
+      description: get all data without paging
+      parameters: 
+       
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: method
+          in: query
+          description: method values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: method_mode
+          in: query
+          description: method mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: amount
+          in: query
+          description: amount values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: amount_mode
+          in: query
+          description: amount mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: status
+          in: query
+          description: status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: status_mode
+          in: query
+          description: status mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: transactionid
+          in: query
+          description: transactionid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: transactionid_mode
+          in: query
+          description: transactionid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: marchanttransactionid
+          in: query
+          description: marchanttransactionid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: marchanttransactionid_mode
+          in: query
+          description: marchanttransactionid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountid
+          in: query
+          description: accountid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: accountid_mode
+          in: query
+          description: accountid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/topupData'
+        '400':
+          description: Invalid status value
+/topup/suggestions:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - topup
+      summary: List topup
+      description: Keyward search data on method,status,transactionid,marchanttransactionid
+      parameters:
+        - name: search  
+          in: query
+          description: keyword search on method,status,transactionid,marchanttransactionid
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/topupData'
+        '400':
+          description: Invalid status value
+/topup/{id}:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - topup
+      summary: List topup
+      description: get 
+      parameters:
+        - name: id
+          in: path
+          description: get Topup by id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/definitions/topupData'
+        '400':
+          description: Invalid status value
+definitions:
+  topup:
+      type: object
+      properties:
+        
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        method:
+            type: string
+        amount:
+            type: number
+            format: double
+        status:
+            type: string
+        transactionid:
+            type: string
+        marchanttransactionid:
+            type: string
+        accountid:
+            type: integer
+          
+
+  topupData:
+      type: object
+      properties:
+      
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        method:
+            type: string
+        amount:
+            type: number
+            format: double
+        status:
+            type: string
+        transactionid:
+            type: string
+        marchanttransactionid:
+            type: string
+        accountid:
+            type: integer
+          
+    

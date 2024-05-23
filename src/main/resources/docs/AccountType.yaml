@@ -1,0 +1,635 @@
+
+securitySchemes:
+    bearerAuth:  # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+paths:
+  /accounttype:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - accounttype
+      summary: Add new Account Type
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: displayName
+          description: Save new Account Type
+          required: true
+          schema:
+            $ref: '#/definitions/accounttype'
+      responses:
+        '201':
+          description: An object with Account Type details
+
+  /accounttype/:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - accounttype
+      summary: List Account Type
+      description: Search Account Type 
+      parameters:
+        - name: page
+          in: query
+          description: page No
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: limit data per page or Page Size
+          required: false
+          explode: true
+          schema:
+            type: integer
+        
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: typename
+          in: query
+          description: typename values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: typename_mode
+          in: query
+          description: typename mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: mintopup
+          in: query
+          description: mintopup values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: mintopup_mode
+          in: query
+          description: mintopup mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: maxtopup
+          in: query
+          description: maxtopup values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: maxtopup_mode
+          in: query
+          description: maxtopup mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: minwithdraw
+          in: query
+          description: minwithdraw values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: minwithdraw_mode
+          in: query
+          description: minwithdraw mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: maxwithdraw
+          in: query
+          description: maxwithdraw values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: maxwithdraw_mode
+          in: query
+          description: maxwithdraw mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: mintransfer
+          in: query
+          description: mintransfer values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: mintransfer_mode
+          in: query
+          description: mintransfer mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: maxtransfer
+          in: query
+          description: maxtransfer values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: maxtransfer_mode
+          in: query
+          description: maxtransfer mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: active
+          in: query
+          description: active true or false
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: true
+            enum:
+              - true
+              - false
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  perpage:
+                    type: integer
+                  page:
+                    type: integer
+                  docs:
+                    type: array
+                    items:
+                      $ref: '#/definitions/accounttypeData'
+        '400':
+          description: Invalid status value
+/accounttype/all:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - accounttype
+      summary: List Account Type
+      description: get all data without paging
+      parameters: 
+       
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: typename
+          in: query
+          description: typename values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: typename_mode
+          in: query
+          description: typename mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: mintopup
+          in: query
+          description: mintopup values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: mintopup_mode
+          in: query
+          description: mintopup mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: maxtopup
+          in: query
+          description: maxtopup values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: maxtopup_mode
+          in: query
+          description: maxtopup mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: minwithdraw
+          in: query
+          description: minwithdraw values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: minwithdraw_mode
+          in: query
+          description: minwithdraw mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: maxwithdraw
+          in: query
+          description: maxwithdraw values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: maxwithdraw_mode
+          in: query
+          description: maxwithdraw mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: mintransfer
+          in: query
+          description: mintransfer values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: mintransfer_mode
+          in: query
+          description: mintransfer mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: maxtransfer
+          in: query
+          description: maxtransfer values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: maxtransfer_mode
+          in: query
+          description: maxtransfer mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: active
+          in: query
+          description: active true or false
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: true
+            enum:
+              - true
+              - false
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accounttypeData'
+        '400':
+          description: Invalid status value
+/accounttype/suggestions:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - accounttype
+      summary: List accounttype
+      description: Keyward search data on typename
+      parameters:
+        - name: search  
+          in: query
+          description: keyword search on typename
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/accounttypeData'
+        '400':
+          description: Invalid status value
+/accounttype/{id}:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - accounttype
+      summary: List accounttype
+      description: get 
+      parameters:
+        - name: id
+          in: path
+          description: get Account Type by id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/definitions/accounttypeData'
+        '400':
+          description: Invalid status value
+definitions:
+  accounttype:
+      type: object
+      properties:
+        
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        typename:
+            type: string
+        mintopup:
+            type: number
+            format: double
+        maxtopup:
+            type: number
+            format: double
+        minwithdraw:
+            type: number
+            format: double
+        maxwithdraw:
+            type: number
+            format: double
+        mintransfer:
+            type: number
+            format: double
+        maxtransfer:
+            type: number
+            format: double
+        active:
+            type: boolean
+          
+
+  accounttypeData:
+      type: object
+      properties:
+      
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        typename:
+            type: string
+        mintopup:
+            type: number
+            format: double
+        maxtopup:
+            type: number
+            format: double
+        minwithdraw:
+            type: number
+            format: double
+        maxwithdraw:
+            type: number
+            format: double
+        mintransfer:
+            type: number
+            format: double
+        maxtransfer:
+            type: number
+            format: double
+        active:
+            type: boolean
+          
+    

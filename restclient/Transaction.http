@@ -1,0 +1,58 @@
+@HOST = http://localhost:8080
+@AUTH = authtoken
+@TESTID = testID
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/auth HTTP/1.1
+content-type: application/json
+
+{
+"email":"test@ucode.ai",
+"password":"123456"
+}
+###
+POST {{HOST}}/transaction HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"particular":"euclf",
+"accountid":"1",
+"amount":"1.35"
+}
+
+###
+
+GET {{HOST}}/transaction? HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/transaction?particular=euclf&accountid=1&amount=1.35&balance=1.35 HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/transaction/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+PUT {{HOST}}/transaction/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"particular":"euclf",
+"accountid":"1",
+"amount":"1.35"
+}
+###
+PATCH {{HOST}}/transaction/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"particular":"euclf",
+"accountid":"1",
+"amount":"1.35"
+}
+###
+DELETE {{HOST}}/transaction/{{TESTID}} http/1.1
+Authorization: Bearer {{AUTH}} 

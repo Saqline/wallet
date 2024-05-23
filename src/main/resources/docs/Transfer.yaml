@@ -1,0 +1,455 @@
+
+securitySchemes:
+    bearerAuth:  # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+paths:
+  /transfer:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - transfer
+      summary: Add new Transfer
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: displayName
+          description: Save new Transfer
+          required: true
+          schema:
+            $ref: '#/definitions/transfer'
+      responses:
+        '201':
+          description: An object with Transfer details
+
+  /transfer/:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transfer
+      summary: List Transfer
+      description: Search Transfer 
+      parameters:
+        - name: page
+          in: query
+          description: page No
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: limit data per page or Page Size
+          required: false
+          explode: true
+          schema:
+            type: integer
+        
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountfrom
+          in: query
+          description: accountfrom values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: accountfrom_mode
+          in: query
+          description: accountfrom mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountto
+          in: query
+          description: accountto values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: accountto_mode
+          in: query
+          description: accountto mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: amount
+          in: query
+          description: amount values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: amount_mode
+          in: query
+          description: amount mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: otp
+          in: query
+          description: otp values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: otp_mode
+          in: query
+          description: otp mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  perpage:
+                    type: integer
+                  page:
+                    type: integer
+                  docs:
+                    type: array
+                    items:
+                      $ref: '#/definitions/transferData'
+        '400':
+          description: Invalid status value
+/transfer/all:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transfer
+      summary: List Transfer
+      description: get all data without paging
+      parameters: 
+       
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountfrom
+          in: query
+          description: accountfrom values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: accountfrom_mode
+          in: query
+          description: accountfrom mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountto
+          in: query
+          description: accountto values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: accountto_mode
+          in: query
+          description: accountto mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: amount
+          in: query
+          description: amount values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: amount_mode
+          in: query
+          description: amount mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: otp
+          in: query
+          description: otp values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: otp_mode
+          in: query
+          description: otp mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/transferData'
+        '400':
+          description: Invalid status value
+/transfer/suggestions:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transfer
+      summary: List transfer
+      description: Keyward search data on accountfrom,accountto
+      parameters:
+        - name: search  
+          in: query
+          description: keyword search on accountfrom,accountto
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/transferData'
+        '400':
+          description: Invalid status value
+/transfer/{id}:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transfer
+      summary: List transfer
+      description: get 
+      parameters:
+        - name: id
+          in: path
+          description: get Transfer by id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/definitions/transferData'
+        '400':
+          description: Invalid status value
+definitions:
+  transfer:
+      type: object
+      properties:
+        
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        accountfrom:
+            type: string
+        accountto:
+            type: string
+        amount:
+            type: number
+            format: double
+        otp:
+            type: string
+        otpexpires:
+            type: string
+            format: date-time
+          
+
+  transferData:
+      type: object
+      properties:
+      
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        accountfrom:
+            type: string
+        accountto:
+            type: string
+        amount:
+            type: number
+            format: double
+        otp:
+            type: string
+        otpexpires:
+            type: string
+            format: date-time
+          
+    

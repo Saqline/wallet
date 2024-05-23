@@ -1,0 +1,455 @@
+
+securitySchemes:
+    bearerAuth:  # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+paths:
+  /transaction:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - transaction
+      summary: Add new Transaction
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: displayName
+          description: Save new Transaction
+          required: true
+          schema:
+            $ref: '#/definitions/transaction'
+      responses:
+        '201':
+          description: An object with Transaction details
+
+  /transaction/:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transaction
+      summary: List Transaction
+      description: Search Transaction 
+      parameters:
+        - name: page
+          in: query
+          description: page No
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: limit data per page or Page Size
+          required: false
+          explode: true
+          schema:
+            type: integer
+        
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: particular
+          in: query
+          description: particular values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: particular_mode
+          in: query
+          description: particular mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountid
+          in: query
+          description: accountid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: accountid_mode
+          in: query
+          description: accountid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: amount
+          in: query
+          description: amount values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: amount_mode
+          in: query
+          description: amount mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: balance
+          in: query
+          description: balance values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: balance_mode
+          in: query
+          description: balance mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  perpage:
+                    type: integer
+                  page:
+                    type: integer
+                  docs:
+                    type: array
+                    items:
+                      $ref: '#/definitions/transactionData'
+        '400':
+          description: Invalid status value
+/transaction/all:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transaction
+      summary: List Transaction
+      description: get all data without paging
+      parameters: 
+       
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: particular
+          in: query
+          description: particular values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: particular_mode
+          in: query
+          description: particular mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: accountid
+          in: query
+          description: accountid values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: accountid_mode
+          in: query
+          description: accountid mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: amount
+          in: query
+          description: amount values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: amount_mode
+          in: query
+          description: amount mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: balance
+          in: query
+          description: balance values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: balance_mode
+          in: query
+          description: balance mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/transactionData'
+        '400':
+          description: Invalid status value
+/transaction/suggestions:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transaction
+      summary: List transaction
+      description: Keyward search data on particular
+      parameters:
+        - name: search  
+          in: query
+          description: keyword search on particular
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/transactionData'
+        '400':
+          description: Invalid status value
+/transaction/{id}:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - transaction
+      summary: List transaction
+      description: get 
+      parameters:
+        - name: id
+          in: path
+          description: get Transaction by id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/definitions/transactionData'
+        '400':
+          description: Invalid status value
+definitions:
+  transaction:
+      type: object
+      properties:
+        
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        particular:
+            type: string
+        accountid:
+            type: integer
+        amount:
+            type: number
+            format: double
+        balance:
+            type: number
+            format: double
+              
+
+  transactionData:
+      type: object
+      properties:
+      
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+        particular:
+            type: string
+        accountid:
+            type: integer
+        amount:
+            type: number
+            format: double
+        balance:
+            type: number
+            format: double
+              
+    

@@ -1,0 +1,88 @@
+@HOST = http://localhost:8080
+@AUTH = authtoken
+@TESTID = testID
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/auth HTTP/1.1
+content-type: application/json
+
+{
+"email":"test@ucode.ai",
+"password":"123456"
+}
+###
+POST {{HOST}}/marketplace HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"businessname":"irure",
+"type":"1",
+"address":"Proident aliquip eu laborum cillum labore laborum qui amet amet tempor laborum labore mollit nostrud.",
+"city":"consectetur",
+"state":"laborum",
+"postcode":"laboris",
+"contactnumber":"601727621536",
+"website":"https://excode.net",
+"mapurl":"https://excode.net",
+"photo":"",
+"status":"nostrud",
+"active":"false",
+"accountid":"1"
+}
+
+###
+
+GET {{HOST}}/marketplace? HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/marketplace?businessname=irure&type=1&address=Proident a&city=consectetu&state=laborum&postcode=laboris&contactnumber=6017276215&website=https://ex&mapurl=https://ex&photo=&status=nostrud&active=false&accountid=1 HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/marketplace/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+PUT {{HOST}}/marketplace/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"businessname":"irure",
+"type":"1",
+"address":"Proident aliquip eu laborum cillum labore laborum qui amet amet tempor laborum labore mollit nostrud.",
+"city":"consectetur",
+"state":"laborum",
+"postcode":"laboris",
+"contactnumber":"601727621536",
+"website":"https://excode.net",
+"mapurl":"https://excode.net",
+"photo":"",
+"status":"nostrud",
+"active":"false",
+"accountid":"1"
+}
+###
+PATCH {{HOST}}/marketplace/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"businessname":"irure",
+"type":"1",
+"address":"Proident aliquip eu laborum cillum labore laborum qui amet amet tempor laborum labore mollit nostrud.",
+"city":"consectetur",
+"state":"laborum",
+"postcode":"laboris",
+"contactnumber":"601727621536",
+"website":"https://excode.net",
+"mapurl":"https://excode.net",
+"photo":"",
+"status":"nostrud",
+"active":"false",
+"accountid":"1"
+}
+###
+DELETE {{HOST}}/marketplace/{{TESTID}} http/1.1
+Authorization: Bearer {{AUTH}} 

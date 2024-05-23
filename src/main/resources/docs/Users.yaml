@@ -1,0 +1,679 @@
+
+securitySchemes:
+    bearerAuth:  # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+paths:
+  /users:
+    post:
+      security:
+      - bearerAuth: []
+      tags:
+        - users
+      summary: Add new usersTable
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: displayName
+          description: Save new usersTable
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+      responses:
+        '201':
+          description: An object with usersTable details
+
+  /users/:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - users
+      summary: List usersTable
+      description: Search usersTable 
+      parameters:
+        - name: page
+          in: query
+          description: page No
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: limit data per page or Page Size
+          required: false
+          explode: true
+          schema:
+            type: integer
+        
+        - name: usertype
+          in: query
+          description: usertype values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: usertype_mode
+          in: query
+          description: usertype mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: lastname
+          in: query
+          description: lastname values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: lastname_mode
+          in: query
+          description: lastname mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: emailotp
+          in: query
+          description: emailotp values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: emailotp_mode
+          in: query
+          description: emailotp mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: firstname
+          in: query
+          description: firstname values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: firstname_mode
+          in: query
+          description: firstname mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: email
+          in: query
+          description: email values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: email_mode
+          in: query
+          description: email mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: mobile
+          in: query
+          description: mobile values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: mobile_mode
+          in: query
+          description: mobile mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: emailotpexpires
+          in: query
+          description: emailotpexpires values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: emailotpexpires_mode
+          in: query
+          description: emailotpexpires mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: createat
+          in: query
+          description: createat values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            format: date
+        - name: createat_mode
+          in: query
+          description: createat mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: dateIs
+            enum:
+              - dateIs
+              - dateIsNot
+              - dateBefore
+              - dateAfter
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateat
+          in: query
+          description: updateat values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            format: date
+        - name: updateat_mode
+          in: query
+          description: updateat mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: dateIs
+            enum:
+              - dateIs
+              - dateIsNot
+              - dateBefore
+              - dateAfter
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  perpage:
+                    type: integer
+                  page:
+                    type: integer
+                  docs:
+                    type: array
+                    items:
+                      $ref: '#/definitions/usersData'
+        '400':
+          description: Invalid status value
+/users/all:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - users
+      summary: List usersTable
+      description: get all data without paging
+      parameters: 
+       
+        - name: usertype
+          in: query
+          description: usertype values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: usertype_mode
+          in: query
+          description: usertype mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: lastname
+          in: query
+          description: lastname values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: lastname_mode
+          in: query
+          description: lastname mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: emailotp
+          in: query
+          description: emailotp values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: emailotp_mode
+          in: query
+          description: emailotp mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: firstname
+          in: query
+          description: firstname values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: firstname_mode
+          in: query
+          description: firstname mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: email
+          in: query
+          description: email values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: email_mode
+          in: query
+          description: email mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: mobile
+          in: query
+          description: mobile values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: mobile_mode
+          in: query
+          description: mobile mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: emailotpexpires
+          in: query
+          description: emailotpexpires values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: integer
+        - name: emailotpexpires_mode
+          in: query
+          description: emailotpexpires mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: equals
+            enum:
+              - equals
+              - notEquals
+              - lt
+              - lte
+              - gt
+              - gte
+        - name: createby
+          in: query
+          description: createby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: createby_mode
+          in: query
+          description: createby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: createat
+          in: query
+          description: createat values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            format: date
+        - name: createat_mode
+          in: query
+          description: createat mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: dateIs
+            enum:
+              - dateIs
+              - dateIsNot
+              - dateBefore
+              - dateAfter
+        - name: updateby
+          in: query
+          description: updateby values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: updateby_mode
+          in: query
+          description: updateby mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: contains
+            enum:
+              - equals
+              - contains
+              - startsWith
+              - endsWith
+              - notContains
+        - name: updateat
+          in: query
+          description: updateat values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            format: date
+        - name: updateat_mode
+          in: query
+          description: updateat mode values that need to be considered for filter type greater than,less than,equal
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: dateIs
+            enum:
+              - dateIs
+              - dateIsNot
+              - dateBefore
+              - dateAfter
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/usersData'
+        '400':
+          description: Invalid status value
+/users/suggestions:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - users
+      summary: List users
+      description: Keyward search data on lastname,firstname,email,mobile
+      parameters:
+        - name: search  
+          in: query
+          description: keyword search on lastname,firstname,email,mobile
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/usersData'
+        '400':
+          description: Invalid status value
+/users/{id}:
+    get:
+      security:
+          - bearerAuth: []
+      tags:
+        - users
+      summary: List users
+      description: get 
+      parameters:
+        - name: id
+          in: path
+          description: get usersTable by id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/definitions/usersData'
+        '400':
+          description: Invalid status value
+definitions:
+  users:
+      type: object
+      properties:
+        
+        usertype:
+            type: integer
+        lastname:
+            type: string
+            minLength: 1      
+            maxLength: 50      
+        emailotp:
+            type: string
+        firstname:
+            type: string
+        email:
+            type: string
+        mobile:
+            type: string
+            minLength: 8      
+            maxLength: 20      
+        emailotpexpires:
+            type: integer
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+          
+
+  usersData:
+      type: object
+      properties:
+      
+        usertype:
+            type: integer
+        lastname:
+            type: string
+            minLength: 1      
+            maxLength: 50      
+        emailotp:
+            type: string
+        firstname:
+            type: string
+        email:
+            type: string
+        mobile:
+            type: string
+            minLength: 8      
+            maxLength: 20      
+        emailotpexpires:
+            type: integer
+        createby:
+            type: string
+        createat:
+            type: string
+            format: date-time
+        updateby:
+            type: string
+        updateat:
+            type: string
+            format: date-time
+          
+    

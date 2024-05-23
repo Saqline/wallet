@@ -1,0 +1,39 @@
+# Spring Boot
+target/
+
+# Maven
+mvnw
+mvnw.cmd
+.mvn/
+.env
+# Gradle
+gradle/
+build/
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Logs
+log/
+*.log
+
+# Eclipse
+bin/
+.settings/
+.classpath
+.project
+
+# IntelliJ
+out/
+*.iml
+*.iws
+*.ipr
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

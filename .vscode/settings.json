@@ -1,0 +1,7 @@
+{
+    "githubPullRequests.remotes": [
+        "upstream"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic"
+}

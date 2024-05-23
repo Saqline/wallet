@@ -1,0 +1,214 @@
+@HOST = https://alifpaywallet-alifpay.azuremicroservices.io
+//https://www.youtube.com/watch?v=53T_R3xAPTg
+//@HOST = http://localhost:8080
+
+@AUTH = eyJhbGciOiJIUzM4NCJ9.eyJpbWFnZSI6ImM4NDAzOTI0LWFmOGUtNGQxMC1hOWM3LWNmNmI2MTQwYmY0NiIsImZpcnN0bmFtZSI6InVDb2RlIiwicGVybWlzc2lvbkxldmVsIjoxLCJtb2JpbGUiOiI2MDE3NjQwODI1MCIsInVzZXJJZCI6ImM4NDAzOTI0LWFmOGUtNGQxMC1hOWM3LWNmNmI2MTQwYmY0NiIsIndlYkFjY2VzcyI6MSwiZW1haWwiOiJ0ZXN0MTRAYWxpZnBheS5jb20iLCJsYXN0bmFtZSI6IlRlc3QiLCJzdWIiOiJ0ZXN0MTRAYWxpZnBheS5jb20iLCJpYXQiOjE3MTQ5Nzg0MTcsImV4cCI6MTcxNDk5MjgxN30.Bgp-eBIf35yh8hRqMEfIBPwQS4QBj0xEGAN4HYQSWDEau0q23hMzyxfFWg8jBaSL
+@TESTID = testID 
+
+//LOGIN ENDPOINT 
+POST {{HOST}}/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "email":"test14@alifpay.com",
+    "password":"123456"
+}
+
+### 
+POST {{HOST}}/auth/verifyOtpSend?email=test14@alifpay.com HTTP/1.1
+content-type: application/json
+
+###
+GET {{HOST}}/users?search= HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/users?usertype=1&createat=2024-04-25T13:12:20.140+00:0&createat=2024-04-25T13:12:20.140+00:0&lastname=Test&firstname=uCode&email=test14@alifpay.com&mobile=60176408250&role=User&page=0&size=10&sort=id&dirction=desc HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/users?email=test14@alifpay.com HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+#MAIN REGISTRATION for Java Spring boot
+POST {{HOST}}/auth/reg HTTP/1.1
+content-type: application/json
+ 
+{
+"email":"imrannurint@gmail.com",
+"password":"123456",
+"firstname":"uCode",
+"lastname":"Test",
+"usertype":"0",
+"mobile":"60176408250"
+}
+
+###
+POST {{HOST}}/auth/verifyOtpSend?email=imrannurint@gmail.com HTTP/1.1
+content-type: application/json
+
+
+
+###     
+POST {{HOST}}/auth/changePassword
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+    "email":"imranshohag101@gmail.com",
+    "oldPassword":"123456",
+    "newPassword":"1234567"
+}
+###
+POST {{HOST}}/auth/verifyEmail HTTP/1.1
+content-type: application/json
+
+{
+    "email":"test14@alifpay.com",
+    "otp":"458497"
+
+}
+
+
+###
+POST {{HOST}}/auth/forgotPasswordOtpSend?email=test14@alifpay.com HTTP/1.1
+content-type: application/json
+
+###
+POST {{HOST}}/auth/resetPassword HTTP/1.1
+content-type: application/json
+
+{
+    "email":"test14@alifpay.com",
+    "otp":"096069",
+    "newPassword":"123456"
+
+}
+
+
+###
+GET {{HOST}}/users?usertype=1&lastname=Te&email=test1&page=0&size=10&sort=id&dirction=desc HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/users HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+PATCH {{HOST}}/users/ HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"usertype":"1",
+"lastname":"esse",
+"firstname":"sunt",
+"password":"ucode1234",
+"email":"quis@ucode.ai1",
+"mobile":"estclf0"
+}
+###
+DELETE {{HOST}}/users/ http/1.1
+Authorization: Bearer {{AUTH}} 
+
+
+###
+POST {{HOST}}/users/add HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"usertype":"1",
+"lastname":"esse",
+"firstname":"sunt",
+"password":"ucode1234",
+"email":"quis@ucode.ai1",
+"mobile":"estclf0"
+}
+###
+GET  {{HOST}}/banks HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+###
+POST {{HOST}}/banks HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+    "name": "Example Bank",
+    "shortName": "ExBank",
+    "logo": "bank_logo.png"
+}
+
+###
+GET  {{HOST}}/userbanks HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+###
+POST {{HOST}}/userbanks HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+    "accountId": "430d58ed-3978-4d08-9d23-5057dd33d1d2",
+    "bankId": "430d58ed-3978-4d08-9d23-5057dd33d1d2",
+    "bankAccNo": "0123456789",
+    "branchName": "Main Branch",
+    "swiftCode": "SWFTUSXX",
+    "isActive": true,
+    "supportingDocs": "docs_here.pdf"
+}
+
+###
+GET  {{HOST}}/withdraws HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+###
+POST {{HOST}}/withdraws HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+    "accountId": "64e7c034-0b61-4116-b63d-3c399b5c3070",
+    "amount": 50,
+    "userBank": "26c475d8-1d4f-45af-82cf-55312560f9f6"
+}
+
+//Transfer
+
+###  
+GET {{HOST}}/transfer HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+###  
+POST {{HOST}}/transfer HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"accountfrom":"246469e2-2945-421d-9478-e4fe82cf0d4d",
+"accountto":"a9afc1c3-b382-46fa-afcc-05427c22cecb",
+"amount":"40",
+"transfertype":"GENERAL",
+"notes":"new transaction"
+}
+
+###
+POST {{HOST}}/transfer/verifyOtp HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"id":"2bfd8571-918b-40e0-83d0-f37dfd1e92ec",
+"topUpId": "0b6b2278-9c80-4759-9143-01926ace29ff",
+"otp":"345797"
+}
+
+//"topUpId"   : "",
+###
+
+

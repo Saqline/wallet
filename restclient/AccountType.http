@@ -1,0 +1,73 @@
+@HOST = http://localhost:8080
+@AUTH = eyJhbGciOiJIUzM4NCJ9.eyJpbWFnZSI6Ijg1M2FhOTJmLTI1ODEtNDQyMi05OGMxLTdhOWU1ZmVmOTI1YSIsImZpcnN0bmFtZSI6InVDb2RlIiwicGVybWlzc2lvbkxldmVsIjoxLCJtb2JpbGUiOiI2MDE3NjQwODI1MCIsInVzZXJJZCI6Ijg1M2FhOTJmLTI1ODEtNDQyMi05OGMxLTdhOWU1ZmVmOTI1YSIsIndlYkFjY2VzcyI6MSwiZW1haWwiOiJ0ZXN0MTRAYWxpZnBheS5jb20iLCJsYXN0bmFtZSI6IlRlc3QiLCJzdWIiOiJ0ZXN0MTRAYWxpZnBheS5jb20iLCJpYXQiOjE3MTQwMjkyNzMsImV4cCI6MTcxNDA0MzY3M30.K0Vmp2l0JamIEIRGzkrMtXa-ezdIOPFL_p9bzMzKFBvCFfvN5aBNAwfqBUlutR6w
+@TESTID = testID
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/auth HTTP/1.1
+content-type: application/json
+
+{
+"email":"test@ucode.ai",
+"password":"123456"
+}
+###
+POST {{HOST}}/accounttype HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"typename":"euclf",
+"mintopup":"1.35",
+"maxtopup":"1.35",
+"minwithdraw":"1.35",
+"maxwithdraw":"1.35",
+"mintransfer":"1.35",
+"maxtransfer":"1.35",
+"active":"false"
+}
+
+###
+
+GET {{HOST}}/accounttype? HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/accounttype?typename=euclf&mintopup=1.35&maxtopup=1.35&minwithdraw=1.35&maxwithdraw=1.35&mintransfer=1.35&maxtransfer=1.35&active=false HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/accounttype/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+PUT {{HOST}}/accounttype/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"typename":"euclf",
+"mintopup":"1.35",
+"maxtopup":"1.35",
+"minwithdraw":"1.35",
+"maxwithdraw":"1.35",
+"mintransfer":"1.35",
+"maxtransfer":"1.35",
+"active":"false"
+}
+###
+PATCH {{HOST}}/accounttype/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"typename":"euclf",
+"mintopup":"1.35",
+"maxtopup":"1.35",
+"minwithdraw":"1.35",
+"maxwithdraw":"1.35",
+"mintransfer":"1.35",
+"maxtransfer":"1.35",
+"active":"false"
+}
+###
+DELETE {{HOST}}/accounttype/{{TESTID}} http/1.1
+Authorization: Bearer {{AUTH}} 

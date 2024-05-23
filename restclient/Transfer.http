@@ -1,0 +1,77 @@
+@HOST = https://alifpaywallet-alifpay.azuremicroservices.io
+@AUTH = eyJhbGciOiJIUzM4NCJ9.eyJpbWFnZSI6IjM2M2M2YzhjLWY4MmYtNDM2YS05NWY1LWQyYmMzNWE3OGRlNiIsImZpcnN0bmFtZSI6InVDb2RlIiwicGVybWlzc2lvbkxldmVsIjoxLCJtb2JpbGUiOiI2MDE3NjQwODI1MCIsInVzZXJJZCI6IjM2M2M2YzhjLWY4MmYtNDM2YS05NWY1LWQyYmMzNWE3OGRlNiIsIndlYkFjY2VzcyI6MSwiZW1haWwiOiJ0ZXN0MTRAYWxpZnBheS5jb20iLCJsYXN0bmFtZSI6IlRlc3QiLCJzdWIiOiJ0ZXN0MTRAYWxpZnBheS5jb20iLCJpYXQiOjE3MTQyMDE1MzMsImV4cCI6MTcxNDIxNTkzM30.yZH7lrBtF_MzUjd5OKqJZdc8Js3Kj1OcIHv7RmjnKD16nFbO76xcxKCDKx_74xPn
+@TESTID = testID
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/auth HTTP/1.1
+content-type: application/json
+
+{
+"email":"test14@ucode.ai",
+"password":"123456"
+}
+
+###
+POST {{HOST}}/transfer HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"accountfrom":"16cace2b-3568-4a9c-9093-b4b38bfd187a",
+"accountto":"363c6c8c-f82f-436a-95f5-d2bc35a78de6",
+"amount":"40",
+"transfertype":"quis",
+"notes":"Ad cillum do est sit duis anim incididunt adipisicing quis incididunt consectetur sint proident."
+}
+
+###
+POST {{HOST}}/transfer/verify HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"id":"excepteur",
+"otp":"cillum"
+}
+
+###
+
+GET {{HOST}}/transfer? HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/transfer?accountfrom=excepteur&accountto=cillum&amount=1.35&status=proident&transfertype=quis&notes=Ad cillum  HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+GET {{HOST}}/transfer/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+
+###
+PUT {{HOST}}/transfer/ HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"accountfrom":"excepteur",
+"accountto":"cillum",
+"amount":"1.35",
+"status":"proident",
+"transfertype":"quis",
+"notes":"Ad cillum do est sit duis anim incididunt adipisicing quis incididunt consectetur sint proident."
+}
+###
+PATCH {{HOST}}/transfer/{{TESTID}} HTTP/1.1
+Authorization: Bearer {{AUTH}}
+content-type: application/json
+
+{
+"accountfrom":"excepteur",
+"accountto":"cillum",
+"amount":"1.35",
+"status":"proident",
+"transfertype":"quis",
+"notes":"Ad cillum do est sit duis anim incididunt adipisicing quis incididunt consectetur sint proident."
+}
+###
+DELETE {{HOST}}/transfer/{{TESTID}} http/1.1
+Authorization: Bearer {{AUTH}} 
