@@ -1,5 +1,6 @@
 # Spring Boot
 target/
+restclient/
 
 # Maven
 mvnw
